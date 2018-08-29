@@ -7,7 +7,7 @@ AWS サーバーレスアプリケーションモデル (AWS SAM) ハンズオ�
 | ソフトウェア   | バージョン   | 備考        |
 |:---------------|:-------------|:------------|
 | golang         |1.11.0    |             |
-| sam            |0.3.0  |             |
+| sam            |0.5.0  |             |
 | docker         |17.06.2  |             |
 | docker-compose |1.21.0  |             |
 | vagrant        |2.0.3  |             |
@@ -33,7 +33,7 @@ vagrant ssh
 + goenvのインストール
 + goのインストール
 ```bash
-pip install --user aws-sam-cli
+pip install --user aws-sam-cli==0.5.0
 git clone https://github.com/syndbg/goenv.git ~/.goenv
 echo 'export GOENV_ROOT="$HOME/.goenv"' >> ~/.bash_profile
 echo 'export PATH="$GOENV_ROOT/bin:$PATH"' >> ~/.bash_profile
@@ -42,6 +42,18 @@ exec $SHELL
 souce ~/.bash_profile
 goenv install 1.11.0
 ```
+
+### ローカルでテストする
+```bash
+cd /vagrant/sam-app
+make deps
+go test -v ./hello-world
+make clean build
+sam local generate-event api > event_file.json
+sam local invoke HelloWorldFunction --event event_file.json
+sam local start-api --host 0.0.0.0
+```
+[http://192.168.33.10:3000/hello](http://192.168.33.10:3000/hello)に接続して確認する
 
 
 **[⬆ back to top](#構成)**
