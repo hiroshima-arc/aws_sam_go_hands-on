@@ -18,3 +18,4 @@ cover.html
 docs/.asciidoctor
 .gradle
 .env
+packaged.yaml
