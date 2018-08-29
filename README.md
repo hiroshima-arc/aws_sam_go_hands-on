@@ -6,7 +6,7 @@ AWS サーバーレスアプリケーションモデル (AWS SAM) ハンズオ�
 # 前提 #
 | ソフトウェア   | バージョン   | 備考        |
 |:---------------|:-------------|:------------|
-| golang         |1.11    |             |
+| golang         |1.11.0    |             |
 | sam            |0.3.0  |             |
 | docker         |17.06.2  |             |
 | docker-compose |1.21.0  |             |
@@ -28,6 +28,22 @@ vagrant up
 vagrant ssh
 ```
 
+### 開発パッケージのインストール
++ aws-sam-cliのインストール
++ goenvのインストール
++ goのインストール
+```bash
+pip install --user aws-sam-cli
+git clone https://github.com/syndbg/goenv.git ~/.goenv
+echo 'export GOENV_ROOT="$HOME/.goenv"' >> ~/.bash_profile
+echo 'export PATH="$GOENV_ROOT/bin:$PATH"' >> ~/.bash_profile
+echo 'eval "$(goenv init -)"' >> ~/.bash_profile
+exec $SHELL
+souce ~/.bash_profile
+goenv install 1.11.0
+```
+
+
 **[⬆ back to top](#構成)**
 
 ## 配置
@@ -40,3 +56,4 @@ vagrant ssh
 **[⬆ back to top](#構成)**
 
 # 参照 #
++ [Go Version Management: goenv](https://github.com/syndbg/goenv)
