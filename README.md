@@ -43,17 +43,33 @@ souce ~/.bash_profile
 goenv install 1.11.0
 ```
 
-### ローカルでテストする
+### ドキュメント環境構築
 ```bash
-cd /vagrant/sam-app
-make deps
-go test -v ./hello-world
-make clean build
-sam local generate-event api > event_file.json
-sam local invoke HelloWorldFunction --event event_file.json
-sam local start-api --host 0.0.0.0
+cd /vagrant
+curl -s api.sdkman.io | bash
+source "/home/vagrant/.sdkman/bin/sdkman-init.sh"
+sdk list maven
+sdk use maven 3.5.4
+sdk list java
+sdk use java 8.0.181-zulu
+sdk list gradle
+sdk use gradle 4.9
 ```
-[http://192.168.33.10:3000/hello](http://192.168.33.10:3000/hello)に接続して確認する
+ドキュメントのセットアップ
+```
+cd /vagrant/
+touch build.gradle
+```
+`build.gradle`を作成して以下のコマンドを実行
+```
+gradle build
+```
+ドキュメントの生成
+```bash
+gradle asciidoctor
+gradle livereload
+```
+[http://192.168.33.10:35729/](http://192.168.33.10:35729/)に接続して確認する
 
 
 **[⬆ back to top](#構成)**
@@ -71,6 +87,19 @@ cd /vagrant
 sam init --runtime go
 cd sam-app
 ```
+
+### ローカルでテストする
+```bash
+cd /vagrant/sam-app
+make deps
+go test -v ./hello-world
+make clean build
+sam local generate-event api > event_file.json
+sam local invoke HelloWorldFunction --event event_file.json
+sam local start-api --host 0.0.0.0
+```
+[http://192.168.33.10:3000/hello](http://192.168.33.10:3000/hello)に接続して確認する
+
 
 ### Lintの実行
 ```
@@ -92,3 +121,4 @@ python -m SimpleHTTPServer
 # 参照 #
 + [Go Version Management: goenv](https://github.com/syndbg/goenv)
 + [Command vet ](https://golang.org/cmd/vet/)
++ [図入りのAsciiDoc記述からPDFを生成する環境をGradleで簡単に用意する](https://qiita.com/tokumoto/items/d37ab3de5bdbee307769) 
