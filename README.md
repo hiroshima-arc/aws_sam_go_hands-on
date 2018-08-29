@@ -72,7 +72,15 @@ sam init --runtime go
 cd sam-app
 ```
 
+### Lintの実行
+```
+cd /vagrant/sam-app
+go vet ./hello-world
+```
+
+
 **[⬆ back to top](#構成)**
 
 # 参照 #
 + [Go Version Management: goenv](https://github.com/syndbg/goenv)
++ [Command vet ](https://golang.org/cmd/vet/)
