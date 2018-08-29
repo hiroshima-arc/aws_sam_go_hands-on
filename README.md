@@ -53,6 +53,13 @@ goenv install 1.11.0
 **[⬆ back to top](#構成)**
 
 ## 開発
+### アプリケーションの作成
+```bash
+cd /vagrant
+sam init --runtime go
+cd sam-app
+```
+
 **[⬆ back to top](#構成)**
 
 # 参照 #
