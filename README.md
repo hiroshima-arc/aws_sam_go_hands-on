@@ -118,6 +118,17 @@ aws cloudformation describe-stacks --stack-name go-hands-on-development --query 
 **[⬆ back to top](#構成)**
 
 ## 運用
+### スタックの削除
+```bash
+aws cloudformation delete-stack --stack-name go-handson-development
+aws cloudformation delete-stack --stack-name go-handson-production
+aws cloudformation delete-stack --stack-name go-handson-pipline
+```
+### S３バケットの削除
+```bash
+aws s3 rb s3://go-hands-on --force
+```
+
 **[⬆ back to top](#構成)**
 
 ## 開発
