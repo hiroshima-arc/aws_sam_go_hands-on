@@ -78,6 +78,14 @@ cd /vagrant/sam-app
 go vet ./hello-world
 ```
 
+### コードカバレッジの実行
+```
+cd /vagrant/sam-app
+go test -coverprofile=cover.out ./hello-world/
+go tool cover -html=cover.out -o cover.html
+python -m SimpleHTTPServer
+```
+[http://192.168.33.10:8000/](http://192.168.33.10:8000/)に接続して確認する
 
 **[⬆ back to top](#構成)**
 
