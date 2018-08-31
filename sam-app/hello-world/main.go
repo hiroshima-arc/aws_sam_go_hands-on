@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io/ioutil"
@@ -20,6 +21,26 @@ var (
 	// ErrNon200Response non 200 status code in response
 	ErrNon200Response = errors.New("Non 200 Response found")
 )
+
+type Response struct {
+	Message  string `json:"message"`
+	Location string `json:"location"`
+}
+
+func jsonFormatter(message string, ip []byte) string {
+	hello := Response{
+		Message:  message,
+		Location: string(ip),
+	}
+
+	jsonBytes, err := json.Marshal(hello)
+	if err != nil {
+		fmt.Println("JSON Marshal error:", err)
+		return ""
+	}
+
+	return string(jsonBytes)
+}
 
 func handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 	resp, err := http.Get(DefaultHTTPGetAddress)
@@ -41,8 +62,12 @@ func handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyRespo
 	}
 
 	return events.APIGatewayProxyResponse{
-		Body:       fmt.Sprintf("Hello, %v", string(ip)),
+		Body:       jsonFormatter("Hello Go lambda world", ip),
 		StatusCode: 200,
+		Headers: map[string]string{
+			"Content-Type":                "application/json",
+			"Access-Control-Allow-Origin": "*",
+		},
 	}, nil
 }
 
